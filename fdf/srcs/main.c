@@ -6,11 +6,32 @@
 /*   By: gepicard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/20 13:27:20 by gepicard          #+#    #+#             */
-/*   Updated: 2016/11/21 17:03:25 by gepicard         ###   ########.fr       */
+/*   Updated: 2016/11/24 18:56:18 by geoffrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	ft_line(int xa, int ya, int xb, int yb, void *mlx, void* win)
+{
+	int i;
+	int j;
+	int a;
+	int b;
+
+	if (xb - xa > 0)
+		a = (yb - ya) / (xb - xa);
+	else
+		a = 0;
+	b = ya - a * xa;
+	i = xa;
+	while (i <= xb)
+	{
+		j = (a * i + b);
+		mlx_pixel_put(mlx, win, i, j, 0x00FFFFFF);
+		i++;
+	}
+}
 
 void	ft_put_main(int **tab, int h, int l)
 {
@@ -20,17 +41,19 @@ void	ft_put_main(int **tab, int h, int l)
 	int		j;
 
 	j = 0;
+	(void)tab;
 	mlx = mlx_init();
 	win = mlx_new_window(mlx, 400, 400, "tinkiete");
-	while (j < h)
+	ft_line(0, 0, 10, 10, mlx, win);
+	while (j < h * 10)
 	{
 		i = 0;
-		while (i < l)
+		while (i < l * 10)
 		{
-			mlx_pixel_put(mlx, win, ft_get_x(i, tab[j][i]), ft_get_y(j, tab[j][i]), 0x00FFFFFFF);
-			i++;
+			mlx_pixel_put(mlx, win, i, j, 0x00FFFFFFF);
+			i += 10;
 		}
-		j++;
+		j += 10;
 	}
 	mlx_loop(mlx);
 }
