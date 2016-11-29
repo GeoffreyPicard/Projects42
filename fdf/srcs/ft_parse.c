@@ -6,7 +6,7 @@
 /*   By: gepicard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 11:13:04 by gepicard          #+#    #+#             */
-/*   Updated: 2016/11/21 14:49:11 by gepicard         ###   ########.fr       */
+/*   Updated: 2016/11/28 15:47:04 by gepicard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int			ft_count_len(char **tab)
 	return (i);
 }
 
-int		*ft_strdup_int(int *src, int len)
+int			*ft_strdup_int(int *src, int len)
 {
 	int i;
 	int *dst;
@@ -38,13 +38,13 @@ int		*ft_strdup_int(int *src, int len)
 	return (dst);
 }
 
-int		**ft_list_to_tab(t_inttab *list, int h, int l)
+int			**ft_list_to_tab(t_inttab *list, int h, int l)
 {
 	int **tab;
 	int i;
 
 	i = 0;
-	if(!(tab = (int **)malloc(sizeof(int *) * l)))
+	if (!(tab = (int **)malloc(sizeof(int *) * l)))
 		return (NULL);
 	while (i < h)
 	{
@@ -86,7 +86,7 @@ int			*ft_tab_to_inttab(char **tab)
 	j = 0;
 	while (tab[i])
 		i++;
-	if(!(dst = (int *)malloc(sizeof(int) * i)))
+	if (!(dst = (int *)malloc(sizeof(int) * i)))
 		return (NULL);
 	i = 0;
 	while (tab[i])

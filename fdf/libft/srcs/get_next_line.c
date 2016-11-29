@@ -12,78 +12,59 @@
 
 #include "libft.h"
 
-char	*ft_first_part(int fd)
+int		ft_strend(char *str, int len)
+{
+	while (str[len])
+		len++;
+	return (len);
+}
+
+char	*ft_read(char *swap, size_t fd)
 {
 	char	*tmp;
-	int		ret;
 	char	*buf;
-	char	*dst;
+	size_t	ret;
 
-	dst = ft_strnew(0);
 	buf = ft_strnew(BUFF_SIZE);
-	while (!ft_memchr(buf, '\n', BUFF_SIZE) && (ret = read(fd, buf, BUFF_SIZE)))
+	while (!ft_strchr(swap, '\n') && (ret = read(fd, buf, BUFF_SIZE)))
 	{
-		tmp = ft_strdup(dst);
-		free(dst);
-		dst = ft_strjoin(tmp, buf);
-		free(tmp);
-		bzero(buf, BUFF_SIZE);
+		buf[ret] = '\0';
+		tmp = ft_strdup(swap);
+		if (swap)
+			free(swap);
+		swap = ft_strjoin(tmp, buf);
+		if (tmp)
+			free(tmp);
 	}
-	if (ft_memchr(buf, '\n', BUFF_SIZE))
-	{
-		tmp = ft_strdup(dst);
-		free(dst);
-		dst = ft_strjoin(tmp, buf);
-		free(tmp);
-	}
-	free(buf);
-	return (dst);
+	(buf) ? (free(buf)) : (0);
+	return (swap);
 }
 
-int		ft_help(char *src, char **line, char **temp)
+int		get_next_line(int const fd, char **line)
 {
-	int i;
-
-	i = 0;
-	if ((ft_memchr(src, '\n', ft_strlen(src))))
-	{
-		while (src[i] != '\n')
-			i++;
-		*line = ft_strsub(src, 0, i);
-		free(*temp);
-		*temp = ft_strsub(src, i + 1, ft_strlen(src));
-		return (1);
-	}
-	*line = ft_strdup(src);
-	if ((*line)[0] != '\0')
-	{
-		bzero(*temp, ft_strlen(*temp));
-		return (1);
-	}
-	return (0);
-}
-
-int		get_next_line(const int fd, char **line)
-{
-	int				i;
-	char			*src;
+	static char		*swap[256];
 	char			*buf;
-	char			*tmp;
-	static char		*temp = NULL;
+	size_t			start;
 
-	i = 0;
 	buf = ft_strnew(0);
-	if (read(fd, buf, 0) == -1 || fd == -1 || !line)
+	if (fd == -1 || read(fd, buf, 0) == -1 || !line)
 		return (-1);
-	free(buf);
-	src = ft_first_part(fd);
-	if (!temp)
-		temp = ft_strnew(0);
-	tmp = ft_strdup(src);
-	free(src);
-	src = ft_strjoin(temp, tmp);
-	free(tmp);
-	if (ft_help(src, line, &temp) == 1)
+	(buf) ? (free(buf)) : (0);
+	(!swap[fd]) ? (swap[fd] = ft_strnew(BUFF_SIZE)) : (0);
+	swap[fd] = ft_read(swap[fd], fd);
+	if (ft_strchr(swap[fd], '\n'))
+	{
+		start = 0;
+		while (swap[fd][start] != '\n')
+			start++;
+		*line = ft_strsub(swap[fd], 0, start);
+		swap[fd] = ft_strsub(swap[fd], start + 1, ft_strend(swap[fd], start));
 		return (1);
+	}
+	if (swap[fd][0] != '\0' && (*line = ft_strdup(swap[fd])))
+	{
+		ft_bzero(swap[fd], ft_strlen(swap[fd]));
+		return (1);
+	}
 	return (0);
-}
+

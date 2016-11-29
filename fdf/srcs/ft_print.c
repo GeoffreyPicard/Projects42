@@ -6,74 +6,110 @@
 /*   By: gepicard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 11:17:00 by gepicard          #+#    #+#             */
-/*   Updated: 2016/11/21 17:03:22 by gepicard         ###   ########.fr       */
+/*   Updated: 2016/11/29 17:55:17 by gepicard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#define EYE_Z 20000
-#define EYE_X 100000
-#define EYE_Y 100000
 
-int		ft_get_x(int x, int z)
+int		ft_get_x(int x, int y, int z)
 {
-	int res;
+	int	res;
+	int	i;
 
-	res = (EYE_Z * (x - EYE_X)) / (EYE_Z + z) + EYE_X;
+	i = 0;
+	(void)z;
+	res = x - 1 * y;
+	while (i < ROT)
+	{
+		res = res - 1 * y;
+		i++;
+	}
 	return (res);
 }
 
-int		ft_get_y(int y, int z)
+int		ft_get_y(int x, int y, int z)
 {
-	int res;
+	int	res;
+	int	i;
 
-	res = (EYE_Z * (y - EYE_Y)) / (EYE_Z + z) + EYE_Y;
+	i = 0;
+	z = -z;
+	res = z + x / 2 + y / 2;
+	while (i < ROT)
+	{
+		res = z + x / 2 + res / 2;
+		i++;
+	}
 	return (res);
 }
 
-void    ft_print_inttab(int *tab, int len)
+void	ft_put_line(t_t *t, int **tab, int x, int y)
 {
-	int i;
-
-	i = 0;
-	while (i < len)
+	if (t->i - ECART >= (LEFT))
 	{
-		printf("%d ", tab[i]);
-		i++;
+		t->x0 = ft_get_x(t->i - ECART, t->j, tab[y][x - 1]);
+		ft_li(ft_get_y(t->i - ECART, t->j, tab[y][x - 1]),
+				ft_get_x(t->i, t->j, tab[y][x]),
+				ft_get_y(t->i, t->j, tab[y][x]), t);
+	}
+	if (t->j - ECART >= RIGHT)
+	{
+		t->x0 = ft_get_x(t->i, t->j - ECART, tab[y - 1][x]);
+		ft_li(ft_get_y(t->i, t->j - ECART, tab[y - 1][x]),
+				ft_get_x(t->i, t->j, tab[y][x]),
+				ft_get_y(t->i, t->j, tab[y][x]), t);
 	}
 }
 
-void    ft_print_tab_int(int **tab, int h, int l)
+void	ft_li(int y0, int x1, int y1, t_t *t)
 {
-	int i;
-
-	i = 0;
-	while (i < h)
+	t->dx = abs(x1 - t->x0);
+	t->sx = t->x0 < x1 ? 1 : -1;
+	t->dy = abs(y1 - y0);
+	t->sy = y0 < y1 ? 1 : -1;
+	t->err = (t->dx > t->dy ? t->dx : -(t->dy)) / 2;
+	while (1)
 	{
-		ft_print_inttab(tab[i], l);
-		printf("\n");
-		i++;
+		mlx_pixel_put(t->mlx, t->win, t->x0, y0, 0x00FFFFFF);
+		if (t->x0 == x1 && y0 == y1)
+			break ;
+		t->e2 = t->err;
+		if (t->e2 > -(t->dx))
+		{
+			t->err -= t->dy;
+			t->x0 += t->sx;
+		}
+		if (t->e2 < t->dy)
+		{
+			t->err += t->dx;
+			y0 += t->sy;
+		}
 	}
 }
 
-void    ft_print_tab(char **tab)
+void	ft_put_main(int **tab, int h, int l, t_t *t)
 {
-	int i;
-
-	i = 0;
-	while (tab[i])
+	t->y = 0;
+	t->j = RIGHT;
+	(void)tab;
+	t->mlx = mlx_init();
+	t->win = mlx_new_window(t->mlx, 2300, 1300, "tinkiete");
+	while (t->j < ((h * ECART + RIGHT)))
 	{
-		printf("%s\n", tab[i]);
-		i++;
+		t->x = 0;
+		t->i = LEFT;
+		while (t->i < (l * ECART + LEFT))
+		{
+			mlx_pixel_put(t->mlx, t->win, ft_get_x(t->i, t->j,
+						tab[t->y][t->x]), ft_get_y(t->i, t->j,
+							tab[t->y][t->x]), 0x00FFFFFF);
+			ft_put_line(t, tab, t->x, t->y);
+			t->i += ECART;
+			t->x++;
+		}
+		t->y++;
+		t->j += ECART;
 	}
-}
-
-void    ft_print_list(t_inttab *list, int len)
-{
-	while (list)
-	{
-		ft_print_inttab((list->tab), len);
-		printf("\n");
-		list = list->next;
-	}
+	mlx_loop(t->mlx);
 }

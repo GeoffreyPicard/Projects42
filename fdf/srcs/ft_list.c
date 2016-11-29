@@ -6,7 +6,7 @@
 /*   By: gepicard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/21 11:14:14 by gepicard          #+#    #+#             */
-/*   Updated: 2016/11/21 14:44:09 by gepicard         ###   ########.fr       */
+/*   Updated: 2016/11/28 15:53:04 by gepicard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 t_inttab	*ft_create_elem(int *tab)
 {
 	t_inttab	*list;
-	if(!(list = (t_inttab*)malloc(sizeof(t_inttab))))
+
+	if (!(list = (t_inttab*)malloc(sizeof(t_inttab))))
 		return (NULL);
 	list->tab = tab;
 	list->next = NULL;
 	return (list);
 }
 
-int		ft_list_size(t_inttab *list)
+int			ft_list_size(t_inttab *list)
 {
 	int i;
 
@@ -35,7 +36,7 @@ int		ft_list_size(t_inttab *list)
 	return (i);
 }
 
-void	ft_list_push_back(t_inttab *list, int *tab)
+void		ft_list_push_back(t_inttab *list, int *tab)
 {
 	t_inttab	*tmp;
 
