@@ -43,7 +43,6 @@ void ft_mandelbrot(t_t *t)
 {
   t->image_x = ((t->x2 - t->x1) * t->zoom);
   t->image_y = ((t->y2 - t->y1) * t->zoom);
-
   t->x = 0;
   while (t->x < t->image_x)
   {

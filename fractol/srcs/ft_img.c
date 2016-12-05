@@ -48,14 +48,11 @@ void    ft_put_pixel_to_img2(unsigned long color, t_t *t, int l, int h)
 
 int     ft_put_img(t_t *t)
 {
-    t->img_ptr = mlx_new_image(t->mlx_ptr, t->l, t->h);
-    t->img = mlx_get_data_addr(t->img_ptr, &(t->bpp),
-            &(t->sizeline), &(t->endian));
-    ft_mandelbrot(t);
+    ft_bzero(t->img, t->h * t->sizeline + t->l * t->bpp / 8 + 3);
+//    ft_mandelbrot(t);
+    ft_julia(t);
     mlx_put_image_to_window(t->mlx_ptr, t->win_ptr,
             t->img_ptr, 0, 0);
-    free(t->img);
-    t->img = NULL;
     return (0);
 }
 
@@ -63,6 +60,9 @@ void    ft_image(t_t *t)
 {
     t->mlx_ptr = mlx_init();
     t->win_ptr = mlx_new_window(t->mlx_ptr, t->l, t->h, "fract'ol");
+    t->img_ptr = mlx_new_image(t->mlx_ptr, t->l, t->h);
+    t->img = mlx_get_data_addr(t->img_ptr, &(t->bpp),
+            &(t->sizeline), &(t->endian));
     mlx_expose_hook(t->win_ptr, ft_put_img, t);
     mlx_hook(t->win_ptr, 2, 1L<<0, ft_key, t);
     mlx_mouse_hook(t->win_ptr, ft_mouse, t);

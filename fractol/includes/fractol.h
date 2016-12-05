@@ -70,6 +70,7 @@ void	ft_put_pixel_to_img2(unsigned long color, t_t *t, int l, int h);
 int		ft_put_img(t_t *t);
 void	ft_image(t_t *t);
 void ft_mandelbrot(t_t *t);
+void ft_julia(t_t *t);
 int     ft_key(int key_code, t_t *t);
 int   ft_mouse(int mouse_code, int x, int y, t_t *t);
 int ft_init_value(t_t *t, char *str);

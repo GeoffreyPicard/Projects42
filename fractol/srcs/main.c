@@ -14,8 +14,8 @@
 
 void ft_init_value_mandelrot(t_t *t)
 {
-	t->l = 1350;
-	t->h = 1200;
+	t->l = 810;
+	t->h = 720;
 	t->iteration_max = 20;
 	t->g_color = 0;
 	t->b_color = 0;
@@ -28,13 +28,27 @@ void ft_init_value_mandelrot(t_t *t)
 	t->x2 = 0.6;
 	t->y1 = -1.2;
 	t->y2 = 1.2;
+	t->zoom = 300;
+}
+
+void ft_init_value_julia(t_t *t)
+{
+	t->l = 1000;
+	t->h = 1200;
+	t->x1 = -1;
+	t->x2 = 1;
+	t->y1 = -1.2;
+	t->y2 = 1.2;
 	t->zoom = 500;
+	t->iteration_max = 150;
 }
 
 int	ft_init_value(t_t *t, char *str)
 {
 	if (ft_strcmp(str, "mandelbrot") == 0)
 		ft_init_value_mandelrot(t);
+	else if (ft_strcmp(str, "julia") == 0)
+		ft_init_value_julia(t);
 	else
 	{
 		ft_putstr("You can only use:\n\nmandelbrot\njulia\n\n");

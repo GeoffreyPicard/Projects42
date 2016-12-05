@@ -45,7 +45,7 @@ int     ft_key(int key_code, t_t *t)
     else if (key_code == 4)
         t->r_color2 -= 20;
     else if (key_code == 49)
-        ft_init_value(t, "mandelbrot");
+        ft_init_value(t, "julia");
     ft_put_img(t);
     return (0);
 }
@@ -54,23 +54,30 @@ int   ft_mouse(int mouse_code, int x, int y, t_t *t)
 {
   float tmp;
   float tmp2;
-  if (mouse_code == 1)
+  static int xtmp;
+  static int ytmp;
+
+  tmp = t->x2 - t->x1;
+  tmp2 = t->y2 - t->y1;
+  if (mouse_code == 1 || mouse_code == 4)
   {
-      tmp = t->x2 - t->x1;
-      tmp2 = t->y2 - t->y1;
-  		t->x1 = (x / t->zoom + t->x1) - (t->l / (t->zoom * 1.2) / 2);
+      xtmp = x;
+      ytmp = y;
+      t->x1 = (x / t->zoom + t->x1) - (t->l / (t->zoom * 1.2) / 2);
+      t->x1 += (t->l / (t->zoom * 1.2) / 2) - (x / (t->zoom * 1.2));
       t->x2 = t->x1 + tmp;
-  		t->y1 = (y / t->zoom + t->y1) - (t->h / (t->zoom * 1.2) / 2);
+      t->y1 = (y / t->zoom + t->y1) - (t->h / (t->zoom * 1.2) / 2);
+      t->y1 += (t->h / (t->zoom * 1.2) / 2) - (y / (t->zoom * 1.2));
       t->y2 = t->y1 + tmp2;
       t->zoom *= 1.2;
   }
-  else if (mouse_code == 2)
+  else if ((mouse_code == 2 || mouse_code == 5) && t->zoom > 300)
   {
-    tmp = t->x2 - t->x1;
-    tmp2 = t->y2 - t->y1;
-    t->x1 = (x / t->zoom + t->x1) - (t->l / (t->zoom / 1.2) / 2);
+    t->x1 = (xtmp / t->zoom + t->x1) - (t->l / (t->zoom / 1.2) / 2);
+    t->x1 += (t->l / (t->zoom / 1.2) / 2) - (xtmp / (t->zoom / 1.2));
     t->x2 = t->x1 + tmp;
-    t->y1 = (y / t->zoom + t->y1) - (t->h / (t->zoom / 1.2) / 2);
+    t->y1 = (ytmp / t->zoom + t->y1) - (t->h / (t->zoom / 1.2) / 2);
+    t->y1 += (t->h / (t->zoom / 1.2) / 2) - (ytmp / (t->zoom / 1.2));
     t->y2 = t->y1 + tmp2;
     t->zoom /= 1.2;
   }
