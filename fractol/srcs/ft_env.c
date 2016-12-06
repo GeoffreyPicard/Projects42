@@ -45,7 +45,12 @@ int     ft_key(int key_code, t_t *t)
     else if (key_code == 4)
         t->r_color2 -= 20;
     else if (key_code == 49)
-        ft_init_value(t, "julia");
+    {
+      if (t->fractal == 1)
+        ft_init_value_mandelrot(t);
+      else if (t->fractal == 2)
+        ft_init_value_julia(t);
+    }
     ft_put_img(t);
     return (0);
 }

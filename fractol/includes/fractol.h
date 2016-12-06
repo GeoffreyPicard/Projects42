@@ -47,6 +47,7 @@ typedef struct	s_t
 	int			k;
 	float			xpos;
 	float			ypos;
+	int			fractal;
 
   double x1;
   double x2;
@@ -74,5 +75,7 @@ void ft_julia(t_t *t);
 int     ft_key(int key_code, t_t *t);
 int   ft_mouse(int mouse_code, int x, int y, t_t *t);
 int ft_init_value(t_t *t, char *str);
+void ft_init_value_mandelrot(t_t *t);
+void ft_init_value_julia(t_t *t);
 
 #endif

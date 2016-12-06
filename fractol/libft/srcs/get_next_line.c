@@ -6,7 +6,7 @@
 /*   By: gepicard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/13 14:07:48 by gepicard          #+#    #+#             */
-/*   Updated: 2016/11/30 13:03:50 by gepicard         ###   ########.fr       */
+/*   Updated: 2016/11/20 15:40:28 by gepicard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,4 @@ int		get_next_line(int const fd, char **line)
 		return (1);
 	}
 	return (0);
-}
+

@@ -48,9 +48,11 @@ void    ft_put_pixel_to_img2(unsigned long color, t_t *t, int l, int h)
 
 int     ft_put_img(t_t *t)
 {
-    ft_bzero(t->img, t->h * t->sizeline + t->l * t->bpp / 8 + 3);
-//    ft_mandelbrot(t);
-    ft_julia(t);
+    ft_bzero(t->img, t->h * t->sizeline);
+    if (t->fractal == 1)
+      ft_mandelbrot(t);
+    if (t->fractal == 2)
+      ft_julia(t);
     mlx_put_image_to_window(t->mlx_ptr, t->win_ptr,
             t->img_ptr, 0, 0);
     return (0);

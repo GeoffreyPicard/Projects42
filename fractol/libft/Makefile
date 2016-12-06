@@ -6,7 +6,7 @@
 #    By: gepicard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/02 18:35:27 by gepicard          #+#    #+#              #
-#    Updated: 2016/11/21 09:58:11 by gepicard         ###   ########.fr        #
+#    Updated: 2016/12/06 18:51:58 by geoffrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,6 @@ SRC=srcs/ft_memset.c\
 	srcs/ft_strrev.c\
 	srcs/ft_intlen.c\
 	srcs/ft_swap.c\
-	srcs/get_next_line.c\
 
 OBJ=ft_memset.o\
 	ft_bzero.o\
@@ -142,7 +141,6 @@ OBJ=ft_memset.o\
 	ft_strrev.o\
 	ft_intlen.o\
 	ft_swap.o\
-	get_next_line.o\
 
 $(NAME):
 	gcc -c $(FLAGS) $(SRC) -I includes

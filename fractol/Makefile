@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-FLAGS=-Wall -Wextra -Werror -g -ggdb
+FLAGS=-Wall -Wextra -Werror
 
 NAME=fractol
 
@@ -47,5 +47,4 @@ fclean: clean
 re: fclean all
 
 .PHONY: clean
-	@clean:
 	@rm -rf $(OBJ)

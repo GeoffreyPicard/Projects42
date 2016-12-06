@@ -10,10 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+ #include "fractol.h"
 
 void ft_init_value_mandelrot(t_t *t)
 {
+	t->fractal = 1;
 	t->l = 810;
 	t->h = 720;
 	t->iteration_max = 20;
@@ -33,13 +34,14 @@ void ft_init_value_mandelrot(t_t *t)
 
 void ft_init_value_julia(t_t *t)
 {
-	t->l = 1000;
-	t->h = 1200;
+	t->fractal = 2;
+	t->l = 600;
+	t->h = 720;
 	t->x1 = -1;
 	t->x2 = 1;
 	t->y1 = -1.2;
 	t->y2 = 1.2;
-	t->zoom = 500;
+	t->zoom = 300;
 	t->iteration_max = 150;
 }
 
