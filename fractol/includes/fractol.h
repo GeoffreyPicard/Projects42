@@ -48,6 +48,10 @@ typedef struct	s_t
 	float			xpos;
 	float			ypos;
 	int			fractal;
+	int			xtmp;
+	int			ytmp;
+	float		tmp1;
+	float		tmp2;
 
   double x1;
   double x2;
@@ -77,5 +81,6 @@ int   ft_mouse(int mouse_code, int x, int y, t_t *t);
 int ft_init_value(t_t *t, char *str);
 void ft_init_value_mandelrot(t_t *t);
 void ft_init_value_julia(t_t *t);
+void ft_init_value_buddhabrot(t_t *t);
 
 #endif

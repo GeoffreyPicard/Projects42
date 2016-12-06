@@ -55,37 +55,42 @@ int     ft_key(int key_code, t_t *t)
     return (0);
 }
 
+void ft_zoom(int x, int y, t_t *t)
+{
+  t->xtmp = x;
+  t->ytmp = y;
+  t->x1 = (x / t->zoom + t->x1) - (t->l / (t->zoom * 1.2) / 2);
+  t->x1 += (t->l / (t->zoom * 1.2) / 2) - (x / (t->zoom * 1.2));
+  t->x2 = t->x1 + t->tmp1;
+  t->y1 = (y / t->zoom + t->y1) - (t->h / (t->zoom * 1.2) / 2);
+  t->y1 += (t->h / (t->zoom * 1.2) / 2) - (y / (t->zoom * 1.2));
+  t->y2 = t->y1 + t->tmp2;
+  t->zoom *= 1.2;
+}
+
+void ft_dezoom(t_t *t)
+{
+  t->x1 = (t->xtmp / t->zoom + t->x1) - (t->l / (t->zoom / 1.2) / 2);
+  t->x1 += (t->l / (t->zoom / 1.2) / 2) - (t->xtmp / (t->zoom / 1.2));
+  t->x2 = t->x1 + t->tmp1;
+  t->y1 = (t->ytmp / t->zoom + t->y1) - (t->h / (t->zoom / 1.2) / 2);
+  t->y1 += (t->h / (t->zoom / 1.2) / 2) - (t->ytmp / (t->zoom / 1.2));
+  t->y2 = t->y1 + t->tmp2;
+  t->zoom /= 1.2;
+}
+
 int   ft_mouse(int mouse_code, int x, int y, t_t *t)
 {
-  float tmp;
-  float tmp2;
-  static int xtmp;
-  static int ytmp;
-
-  tmp = t->x2 - t->x1;
-  tmp2 = t->y2 - t->y1;
+  t->tmp1 = t->x2 - t->x1;
+  t->tmp2 = t->y2 - t->y1;
   if (mouse_code == 1 || mouse_code == 4)
-  {
-      xtmp = x;
-      ytmp = y;
-      t->x1 = (x / t->zoom + t->x1) - (t->l / (t->zoom * 1.2) / 2);
-      t->x1 += (t->l / (t->zoom * 1.2) / 2) - (x / (t->zoom * 1.2));
-      t->x2 = t->x1 + tmp;
-      t->y1 = (y / t->zoom + t->y1) - (t->h / (t->zoom * 1.2) / 2);
-      t->y1 += (t->h / (t->zoom * 1.2) / 2) - (y / (t->zoom * 1.2));
-      t->y2 = t->y1 + tmp2;
-      t->zoom *= 1.2;
-  }
-  else if ((mouse_code == 2 || mouse_code == 5) && t->zoom > 300)
-  {
-    t->x1 = (xtmp / t->zoom + t->x1) - (t->l / (t->zoom / 1.2) / 2);
-    t->x1 += (t->l / (t->zoom / 1.2) / 2) - (xtmp / (t->zoom / 1.2));
-    t->x2 = t->x1 + tmp;
-    t->y1 = (ytmp / t->zoom + t->y1) - (t->h / (t->zoom / 1.2) / 2);
-    t->y1 += (t->h / (t->zoom / 1.2) / 2) - (ytmp / (t->zoom / 1.2));
-    t->y2 = t->y1 + tmp2;
-    t->zoom /= 1.2;
-  }
+      ft_zoom(x, y, t);
+  if ((mouse_code == 2 || mouse_code == 5) && t->zoom > 300)
+    ft_dezoom(t);
+//  if (t->fractal == 2)
+//  {
+//    t->c_r += (x / t->zoom + t->x1);
+//  }
   ft_put_img(t);
   return (0);
 }
