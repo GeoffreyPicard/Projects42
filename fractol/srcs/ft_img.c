@@ -14,36 +14,38 @@
 
 void    ft_put_pixel_to_img(unsigned long color, t_t *t, int l, int h)
 {
-    unsigned char r;
-    unsigned char g;
-    unsigned char b;
-
-    r = ((color & 0xFF0000) >> 16);
-    g = ((color & 0x00FF00) >> 8);
-    b = (color & 0x0000FF);
-    if (l >= 0 && l < t->l && h >= 0 && h < t->h)
-    {
-        t->img[h * t->sizeline + l * t->bpp / 8] = b + t->b_color;
-        t->img[h * t->sizeline + l * t->bpp / 8 + 1] = g + t->g_color;
-        t->img[h * t->sizeline + l * t->bpp / 8 + 2] = r + t->r_color;
-    }
+  (void)color;
+   if (l >= 0 && l < t->l && h >= 0 && h < t->h)
+   {
+       t->img[h * t->sizeline + l * t->bpp / 8] = 0 * ((float)t->i / t->iteration_max) + t->b_color;
+       t->img[h * t->sizeline + l * t->bpp / 8 + 1] = 275 * ((float)t->i / t->iteration_max) + t->g_color;
+       t->img[h * t->sizeline + l * t->bpp / 8 + 2] = 255 * ((float)t->i / t->iteration_max) + t->r_color + 20;
+   }
 }
 
-void    ft_put_pixel_to_img2(unsigned long color, t_t *t, int l, int h)
+void ft_put_str(t_t *t)
 {
-  unsigned char r;
-  unsigned char g;
-  unsigned char b;
+    char *str;
 
-  r = ((color & 0xFF0000) >> 16);
-  g = ((color & 0x00FF00) >> 8);
-  b = (color & 0x0000FF);
-  if (l >= 0 && l < t->l && h >= 0 && h < t->h)
-  {
-      t->img[h * t->sizeline + l * t->bpp / 8] = b + t->b_color2;
-      t->img[h * t->sizeline + l * t->bpp / 8 + 1] = g + t->g_color2;
-      t->img[h * t->sizeline + l * t->bpp / 8 + 2] = r + t->r_color2;
-  }
+    str = ft_itoa(t->iteration_max);
+    str = ft_strjoin("Iterations: ", str);
+    mlx_string_put(t->mlx_ptr, t->win_ptr, 10, 10, 0x00FFFFFF, str);
+    if (t->iteration_max > 50)
+    {
+        mlx_string_put(t->mlx_ptr, t->win_ptr, 10, 40, 0x00FFFFFF,
+          "Piano Piano sur les iterations");
+          mlx_string_put(t->mlx_ptr, t->win_ptr, 320, 40, 0x00FFFFFF, t->prenom);
+    }
+    if (t->iteration_max > 60)
+        mlx_string_put(t->mlx_ptr, t->win_ptr, 10, 70, 0x00FFFFFF, "J'ai dit PIANO PIANO !!");
+    if (t->iteration_max > 80)
+    {
+          mlx_string_put(t->mlx_ptr, t->win_ptr, 10, 100, 0x00FFFFFF, "Ca va ramer");
+          mlx_string_put(t->mlx_ptr, t->win_ptr, 130, 100, 0x00FFFFFF, t->prenom);
+    }
+    if (t->iteration_max >= 100)
+          mlx_string_put(t->mlx_ptr, t->win_ptr, 10, 130, 0x00FFFFFF, "Je t'avais prevenu :)");
+    free(str);
 }
 
 int     ft_put_img(t_t *t)
@@ -53,9 +55,18 @@ int     ft_put_img(t_t *t)
       ft_mandelbrot(t);
     if (t->fractal == 2)
       ft_julia(t);
+    if (t->fractal == 3)
+      ft_fougere(t);
     mlx_put_image_to_window(t->mlx_ptr, t->win_ptr,
             t->img_ptr, 0, 0);
+    ft_put_str(t);
     return (0);
+}
+
+int ft_close(void)
+{
+  exit(1);
+  return (1);
 }
 
 void    ft_image(t_t *t)
@@ -67,6 +78,8 @@ void    ft_image(t_t *t)
             &(t->sizeline), &(t->endian));
     mlx_expose_hook(t->win_ptr, ft_put_img, t);
     mlx_hook(t->win_ptr, 2, 1L<<0, ft_key, t);
+    mlx_hook(t->win_ptr, 17, 0L, ft_close, 0);
     mlx_mouse_hook(t->win_ptr, ft_mouse, t);
+    mlx_string_put(t->mlx_ptr, t->win_ptr, 20, 20, 0x00FFFFFF, "hello");
     mlx_loop(t->mlx_ptr);
 }

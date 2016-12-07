@@ -18,10 +18,12 @@
 # include <math.h>
 # include <stdio.h>
 
-# define IT_MAX
+# define NB_TAB 768;
+int tab[256];
 
 typedef struct	s_t
 {
+	char		*prenom;
 	void		*mlx;
 	void		*win;
 	void		*mlx_ptr;
@@ -41,9 +43,6 @@ typedef struct	s_t
   int     b_color;
   int     g_color;
   int     r_color;
-  int     b_color2;
-  int     g_color2;
-  int     r_color2;
 	int			k;
 	float			xpos;
 	float			ypos;
@@ -52,6 +51,9 @@ typedef struct	s_t
 	int			ytmp;
 	float		tmp1;
 	float		tmp2;
+	float		move_top;
+	float		move_right;
+	float		julia;
 
   double x1;
   double x2;
@@ -71,16 +73,16 @@ typedef struct	s_t
 }				       t_t;
 
 void	ft_put_pixel_to_img(unsigned long color, t_t *t, int l, int h);
-void	ft_put_pixel_to_img2(unsigned long color, t_t *t, int l, int h);
 int		ft_put_img(t_t *t);
 void	ft_image(t_t *t);
 void ft_mandelbrot(t_t *t);
 void ft_julia(t_t *t);
+void ft_fougere(t_t *t);
 int     ft_key(int key_code, t_t *t);
 int   ft_mouse(int mouse_code, int x, int y, t_t *t);
 int ft_init_value(t_t *t, char *str);
 void ft_init_value_mandelrot(t_t *t);
 void ft_init_value_julia(t_t *t);
-void ft_init_value_buddhabrot(t_t *t);
+void ft_init_value_fougere(t_t *t);
 
 #endif

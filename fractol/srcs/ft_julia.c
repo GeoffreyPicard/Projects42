@@ -14,7 +14,7 @@
 
 void ft_help_julia(t_t *t)
 {
-  t->c_r = 0.285;
+  t->c_r = 0.285 + t->julia;
   t->c_i = 0.01;
   t->z_r = t->x / t->zoom + t->x1;
   t->z_i = t->y / t->zoom + t->y1;
@@ -42,6 +42,8 @@ void ft_julia(t_t *t)
         ft_help_julia(t);
         if (t->i == t->iteration_max)
             ft_put_pixel_to_img(0x0033FF, t, t->x, t->y);
+        else
+            ft_put_pixel_to_img(0x000000, t, t->x, t->y);
     t->y++;
     }
   t->x++;

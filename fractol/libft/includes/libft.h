@@ -6,7 +6,7 @@
 /*   By: gepicard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 13:55:30 by gepicard          #+#    #+#             */
-/*   Updated: 2016/11/09 21:44:27 by gepicard         ###   ########.fr       */
+/*   Updated: 2016/11/21 09:57:50 by gepicard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <fcntl.h>
+# define BUFF_SIZE 50
 
 typedef struct	s_list
 {
@@ -88,5 +90,6 @@ int				ft_word_of_string(char const *str, char c);
 char			*ft_strrev(char *str);
 int				ft_intlen(int nb);
 void			ft_swap(int *a, int *b);
+int				get_next_line(const int fd, char **line);
 
 #endif

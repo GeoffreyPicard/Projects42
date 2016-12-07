@@ -19,6 +19,7 @@ SRC=    main.c\
 				ft_mandelbrot.c\
 				ft_env.c\
 				ft_julia.c\
+				ft_fougere.c\
 
 OBJ=$(SRC_POS:.c=.o)
 
