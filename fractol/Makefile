@@ -6,7 +6,7 @@
 #    By: gepicard <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/18 15:49:48 by gepicard          #+#    #+#              #
-#    Updated: 2016/12/02 10:58:03 by gepicard         ###   ########.fr        #
+#    Updated: 2016/12/08 11:25:43 by gepicard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,11 @@ SRC=    main.c\
 				ft_img.c\
 				ft_mandelbrot.c\
 				ft_env.c\
+				ft_env2.c\
 				ft_julia.c\
-				ft_fougere.c\
+				ft_init.c\
+				ft_bille.c\
+				ft_carre.c\
 
 OBJ=$(SRC_POS:.c=.o)
 
