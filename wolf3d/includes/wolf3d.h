@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "libft.h"
+# include "mlx.h"
 
 typedef struct  s_inttab
 {
@@ -26,15 +27,34 @@ typedef struct  s_inttab
 
 typedef struct  s_t
 {
+  char *img;
+  int sizeline;
+  void *mlx_ptr;
+  void *win_ptr;
+  void *img_ptr;
+  int endian;
+  int bpp;
   int **map;
   int h;
   int l;
   int fd;
+  int dx;
+  int x0;
+  int sx;
+  int dy;
+  int sy;
+  int err;
+  int e2;
   int L_screen;
   int H_screen;
-  double posx;
-  double posy;
-  double fov;
+  double posX;
+  double posY;
+  int    pos_now_x;
+  int    pos_now_y;
+  double raydirX;
+  double raydirY;
+  double cameraX;
+
 }               t_t;
 
 void ft_free_tab(int **tab);
@@ -43,5 +63,8 @@ int ft_open_len(char *str, t_t *t);
 char    *ft_string_to_fd(char *dst, int fd);
 void ft_char_to_int(char *str, int fd, t_t *t);
 int ft_main_parse(t_t *t, char **av);
+void	ft_image(t_t *t);
+void	ft_put_pixel_to_img(unsigned long color, t_t *t, int l, int h);
+void	ft_li_img(int y0, int x1, int y1, t_t *t);
 
 #endif

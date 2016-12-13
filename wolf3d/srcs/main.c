@@ -53,9 +53,8 @@ void ft_init(t_t *t)
 	t->H_screen = 200;
 	t->h = 0;
 	t->l = 0;
-	t->posx = 3;
-	t->posy = 3;
-	t->fov = 0.66;
+	t->posX = 3;
+	t->posY = 3;
 }
 
 int		main(int ac, char **av)
@@ -69,6 +68,7 @@ int		main(int ac, char **av)
 		ft_init(t);
 		if (ft_main_parse(t, av) == 1)
 			return (1);
+			ft_image(t);
 		ft_print(t->map, t->h, t->l);
 //		ft_free_tab(t->map);
 //		free(t);

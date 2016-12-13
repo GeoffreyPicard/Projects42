@@ -16,6 +16,8 @@ NAME=wolf3d
 
 SRC=    main.c\
 				ft_parse.c\
+				ft_ray.c\
+				ft_img.c\
 
 OBJ=$(SRC_POS:.c=.o)
 
