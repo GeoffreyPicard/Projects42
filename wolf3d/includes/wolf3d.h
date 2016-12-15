@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include "libft.h"
 # include "mlx.h"
+# include <math.h>
 
 typedef struct  s_inttab
 {
@@ -38,22 +39,33 @@ typedef struct  s_t
   int h;
   int l;
   int fd;
-  int dx;
-  int x0;
-  int sx;
-  int dy;
-  int sy;
-  int err;
-  int e2;
   int L_screen;
   int H_screen;
+  int pos_now_x;
+  int pos_now_y;
   double posX;
   double posY;
-  int    pos_now_x;
-  int    pos_now_y;
+  double dirX;
+  double dirY;
+  double cameraX;
+  double planeX;
+  double planeY;
+  double rayposX;
+  double rayposY;
   double raydirX;
   double raydirY;
-  double cameraX;
+  double sidedistX;
+  double sidedistY;
+  double ecart_sideX;
+  double ecart_sideY;
+  int stepX;
+  int stepY;
+  int mur;
+  int orientation;
+  double di_cor;
+  int h_line;
+  double walk;
+  double rot;
 
 }               t_t;
 
@@ -65,6 +77,9 @@ void ft_char_to_int(char *str, int fd, t_t *t);
 int ft_main_parse(t_t *t, char **av);
 void	ft_image(t_t *t);
 void	ft_put_pixel_to_img(unsigned long color, t_t *t, int l, int h);
-void	ft_li_img(int y0, int x1, int y1, t_t *t);
+void ft_ray_casting(t_t *t);
+int ft_key(int key_code, t_t *t);
+int		ft_put_img(t_t *t);
+void ft_init(t_t *t);
 
 #endif

@@ -49,12 +49,18 @@ void ft_free_tab(int **tab)
 
 void ft_init(t_t *t)
 {
-	t->L_screen = 320;
-	t->H_screen = 200;
+	t->L_screen = 2300;
+	t->H_screen = 1000;
 	t->h = 0;
 	t->l = 0;
-	t->posX = 3;
-	t->posY = 3;
+	t->posX = 5;
+	t->posY = 8;
+	t->dirX = -1;
+	t->dirY = 0;
+	t->planeY = 0.66;
+	t->planeX = 0;
+	t->walk = 0.2;
+	t->rot = 0.2;
 }
 
 int		main(int ac, char **av)
@@ -68,8 +74,8 @@ int		main(int ac, char **av)
 		ft_init(t);
 		if (ft_main_parse(t, av) == 1)
 			return (1);
-			ft_image(t);
-		ft_print(t->map, t->h, t->l);
+		ft_image(t);
+//		ft_print(t->map, t->h, t->l);
 //		ft_free_tab(t->map);
 //		free(t);
 	//	free(str);

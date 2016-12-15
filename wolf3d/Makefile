@@ -18,6 +18,7 @@ SRC=    main.c\
 				ft_parse.c\
 				ft_ray.c\
 				ft_img.c\
+				ft_env.c\
 
 OBJ=$(SRC_POS:.c=.o)
 
