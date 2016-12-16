@@ -37,7 +37,7 @@ int		ft_lenfd(int fd, t_t *t)
 		buf[1] = '\0';
 	}
 	t->l = tmp;
-	return ((t->h < 4 || t->l < 4) ? -1 : 0);
+	return ((t->h < 4 || t->l < 4 || t->h > 100 || t->l > 100) ? -1 : 0);
 }
 
 int		ft_open_len(char *str, t_t *t)

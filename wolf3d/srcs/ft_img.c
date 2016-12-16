@@ -55,6 +55,7 @@ void	ft_image(t_t *t)
 	mlx_expose_hook(t->win_ptr, ft_put_img, t);
 //	mlx_hook(t->win_ptr, 6, 1L << 6, ft_mouse_move, t);
 	mlx_hook(t->win_ptr, 2, 1L << 0, ft_key, t);
+	mlx_hook(t->win_ptr, 3, 1L << 1, ft_key, t);
 	mlx_hook(t->win_ptr, 17, 0L, ft_close, t);
 //	mlx_mouse_hook(t->win_ptr, ft_mouse, t);
 //	mlx_string_put(t->mlx_ptr, t->win_ptr, 20, 20, 0x00FFFFFF, "hello");
