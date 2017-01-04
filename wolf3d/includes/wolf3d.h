@@ -70,6 +70,7 @@ typedef struct  s_t
   int down;
   int left;
   int right;
+  int color;
 }               t_t;
 
 void ft_free_tab(int **tab);

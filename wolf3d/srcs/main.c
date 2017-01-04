@@ -53,13 +53,13 @@ void ft_init(t_t *t)
 	t->H_screen = 500;
 	t->h = 0;
 	t->l = 0;
-	t->posX = 2;
-	t->posY = 2;
+	t->posX = 3;
+	t->posY = 3;
 	t->dirX = -1;
 	t->dirY = 0;
 	t->planeY = 0.66;
 	t->planeX = 0;
-	t->walk = 0.1;
+	t->walk = 0.05;
 	t->rot = 0.1;
 	t->up = 0;
 	t->down = 0;

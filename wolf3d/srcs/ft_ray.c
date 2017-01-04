@@ -45,12 +45,20 @@ void ft_hit_wall(t_t *t)
 		t->sidedistX += t->ecart_sideX;
 		t->pos_now_x += t->stepX;
 		t->orientation = 0;
+    if (t->stepX == 1)
+      t->color = 3;
+    else
+      t->color = 0;
 	}
   else
   {
 		t->sidedistY += t->ecart_sideY;
 		t->pos_now_y += t->stepY;
 		t->orientation = 1;
+    if (t->stepY == 1)
+      t->color = 1;
+    else
+      t->color = 2;
 	}
 	if (t->map[t->pos_now_x][t->pos_now_y] > 0)
 		t->mur = 1;
@@ -80,8 +88,12 @@ void ft_draw_and_calcul_h(t_t *t, int x)
   while (y < h_max)
   {
     color = 0x333300;
-    if (t->orientation == 1)
+    if (t->color == 1)
       color = 0x009933;
+    else if (t->color == 2)
+      color = 0xFF0000;
+    else if (t->color == 3)
+      color = 0x0033FF;
     ft_put_pixel_to_img(color, t, x, y);
     y++;
   }

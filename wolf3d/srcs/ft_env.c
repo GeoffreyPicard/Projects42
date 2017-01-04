@@ -26,6 +26,10 @@ int ft_key(int key_code, t_t *t)
     t->left = 1;
   if (key_code == 2)
     t->right = 1;
+  if (key_code == 126)
+    t->walk = 0.15;
+  if (key_code == 125)
+    t->walk = 0.025;
   return (0);
 }
 
@@ -39,6 +43,10 @@ int ft_key_stop(int key_code, t_t *t)
     t->left = 0;
   if (key_code == 2)
     t->right = 0;
+  if (key_code == 126)
+    t->walk = 0.05;
+  if (key_code == 125)
+    t->walk = 0.05;
   return (0);
 }
 
