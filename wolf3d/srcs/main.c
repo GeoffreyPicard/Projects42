@@ -6,7 +6,7 @@
 /*   By: gepicard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/11 12:53:06 by gepicard          #+#    #+#             */
-/*   Updated: 2016/12/11 12:53:31 by gepicard         ###   ########.fr       */
+/*   Updated: 2016/12/18 19:55:28 by geoffrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void ft_free_tab(int **tab)
 
 void ft_init(t_t *t)
 {
-	t->L_screen = 2300;
-	t->H_screen = 1000;
+	t->L_screen = 1000;
+	t->H_screen = 500;
 	t->h = 0;
 	t->l = 0;
 	t->posX = 2;
@@ -59,8 +59,12 @@ void ft_init(t_t *t)
 	t->dirY = 0;
 	t->planeY = 0.66;
 	t->planeX = 0;
-	t->walk = 0.2;
-	t->rot = 0.2;
+	t->walk = 0.1;
+	t->rot = 0.1;
+	t->up = 0;
+	t->down = 0;
+	t->left = 0;
+	t->right = 0;
 }
 
 void ft_map_correct(t_t *t)

@@ -29,10 +29,23 @@ void	ft_put_pixel_to_img(unsigned long color, t_t *t, int l, int h)
 	}
 }
 
+void ft_move(t_t *t)
+{
+	if (t->up == 1)
+		ft_move_up(t);
+	if (t->down == 1)
+		ft_move_down(t);
+	if (t->left == 1)
+		ft_move_left(t);
+	if (t->right == 1)
+		ft_move_right(t);
+}
+
 int		ft_put_img(t_t *t)
 {
 	ft_bzero(t->img, t->H_screen * t->sizeline);
 	ft_ray_casting(t);
+	ft_move(t);
 	mlx_put_image_to_window(t->mlx_ptr, t->win_ptr,
 			t->img_ptr, 0, 0);
 	return (0);
@@ -45,6 +58,15 @@ int	ft_close(t_t *t)
 	return (1);
 }
 
+void ft_image2(t_t *t)
+{
+	mlx_hook(t->win_ptr, 2, 1L << 0, ft_key, t);
+	mlx_hook(t->win_ptr, 3, 1L << 1, ft_key_stop, t);
+	mlx_hook(t->win_ptr, 17, 0L, ft_close, t);
+	mlx_loop_hook(t->mlx_ptr, ft_put_img, t);
+	mlx_loop(t->mlx_ptr);
+}
+
 void	ft_image(t_t *t)
 {
 	t->mlx_ptr = mlx_init();
@@ -52,12 +74,7 @@ void	ft_image(t_t *t)
 	t->img_ptr = mlx_new_image(t->mlx_ptr, t->L_screen, t->H_screen);
 	t->img = mlx_get_data_addr(t->img_ptr, &(t->bpp),
 			&(t->sizeline), &(t->endian));
-	mlx_expose_hook(t->win_ptr, ft_put_img, t);
-//	mlx_hook(t->win_ptr, 6, 1L << 6, ft_mouse_move, t);
-	mlx_hook(t->win_ptr, 2, 1L << 0, ft_key, t);
-	mlx_hook(t->win_ptr, 3, 1L << 1, ft_key, t);
-	mlx_hook(t->win_ptr, 17, 0L, ft_close, t);
+	ft_image2(t);
 //	mlx_mouse_hook(t->win_ptr, ft_mouse, t);
 //	mlx_string_put(t->mlx_ptr, t->win_ptr, 20, 20, 0x00FFFFFF, "hello");
-	mlx_loop(t->mlx_ptr);
 }

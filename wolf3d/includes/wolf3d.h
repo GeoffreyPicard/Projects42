@@ -66,7 +66,10 @@ typedef struct  s_t
   int h_line;
   double walk;
   double rot;
-
+  int up;
+  int down;
+  int left;
+  int right;
 }               t_t;
 
 void ft_free_tab(int **tab);
@@ -81,5 +84,10 @@ void ft_ray_casting(t_t *t);
 int ft_key(int key_code, t_t *t);
 int		ft_put_img(t_t *t);
 void ft_init(t_t *t);
+void ft_move_up(t_t *t);
+void ft_move_down(t_t *t);
+void ft_move_left(t_t *t);
+void ft_move_right(t_t *t);
+int ft_key_stop(int key_code, t_t *t);
 
 #endif
