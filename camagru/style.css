@@ -1,0 +1,68 @@
+.back
+{
+	background-color: #D8F3FE;
+}
+.header
+{
+	background-color: #00AAF3;
+	border-radius: 7px;
+	height: 70px;
+	width: 100%;
+}
+.off
+{
+	margin-top: 18px;
+	margin-left: 70px;
+	width: 35px;
+	height: 35px;
+	position: absolute;
+}
+.camagru
+{
+	text-align: center;
+	font-family: Courier;
+	font-size: 35px;
+	font-weight: 600;
+	color : white;
+	margin: 0 auto;
+	padding: 15px;
+}
+.inscription
+{
+	width: 100%;
+	height: 475px;
+}
+.insc
+{
+	font-size: 23px;
+	font-family: monospace;
+	padding-left: 15%;
+}
+.login
+{	
+	margin-left: 15%;
+	height: 40px;
+}
+.password
+{
+	height: 40px;
+}
+.mail
+{
+	height: 40px;
+	margin-left: 15%;
+	width: 300px;
+}
+.footer
+{
+	background-color: white;
+	height: 100px;
+}
+.but
+{
+	height: 30px;
+	margin-left: 15%;
+	width: 300px;
+	background-color: #00DB3A;
+	border-radius: 7px;
+}
