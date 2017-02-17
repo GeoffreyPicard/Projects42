@@ -30,7 +30,7 @@
 .inscription
 {
 	width: 100%;
-	height: 475px;
+	height: 250px;
 }
 .insc
 {
@@ -65,4 +65,18 @@
 	width: 300px;
 	background-color: #00DB3A;
 	border-radius: 7px;
+}
+.maine
+{
+	width : 70%;
+	height: 800px;
+	background-color: black;
+}
+.droite
+{
+	margin-left: 70%;
+	width: 30%;
+	height: 800px;
+	background-color: red;
+	position: absolute;
 }

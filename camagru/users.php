@@ -1,44 +1,72 @@
 <?php
 	session_start();
-	$name =  $_POST['login'];
-	$pass = hash('whirlpool', $_POST['password']);
-	$email = $_POST['mail'];
- 	$conn = new PDO("mysql:host=localhost;dbname=camagru", "root", "root");
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "INSERT INTO users (login, password, email)
-    VALUES ('$name', '$pass', '$email')";
-    $conn->exec($sql);
-
-
+    include "function.php";
+    if (strlen(secure_db($_POST['password'])) < 5)
+    {
+        $message = "Password must have more than 5 caracter";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+        echo "<script language='javascript'>document.location.href='index.php'</script>";
+        exit();
+    }
+    if (strlen(secure_db($_POST['login'])) < 5)
+    {
+        $message = "Login must have more than 5 caracter";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+        echo "<script language='javascript'>document.location.href='index.php'</script>";
+        exit();
+    }
+     if (strlen(secure_db($_POST['mail'])) < 5)
+    {
+        $message = "Email must have more than 5 caracter";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+        echo "<script language='javascript'>document.location.href='index.php'</script>";
+        exit();
+    }
+    $name =  secure_db($_POST['login']);
+    $pass = hash('whirlpool', secure_db($_POST['password']));
+    $email = secure_db($_POST['mail']);
 
     class TableRows extends RecursiveIteratorIterator { 
     function __construct($it) { 
         parent::__construct($it, self::LEAVES_ONLY); 
     }
-
-    function current() {
-        return "<td style='width:150px;border:1px solid black;'>" . parent::current(). "</td>";
-    }
-
-    function beginChildren() { 
-        echo "<tr>"; 
-    } 
-
-    function endChildren() { 
-        echo "</tr>" . "\n";
-    } 
 }
     $conn = new PDO("mysql:host=localhost;dbname=camagru", "root", "root");
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $conn->prepare("SELECT id, login, password, email FROM users"); 
     $stmt->execute();
 
-    // set the resulting array to associative
     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
     foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) { 
         {
-            echo $v;
+            if ($k === 'login')
+                if ($v === $name)
+                {
+                    $message = "Login already used";
+                    echo "<script type='text/javascript'>alert('$message');</script>";
+                    echo "<script language='javascript'>document.location.href='index.php'</script>";
+                    exit();
+                }
+            if ($k === 'email')
+                if ($v === $email)
+                {
+                    $message = "Email already used";
+                    echo "<script type='text/javascript'>alert('$message');</script>";
+                    echo "<script language='javascript'>document.location.href='index.php'</script>";
+                    exit();
+                }
         }
     }
-   // header('location: cam.php');
+    $sec =  hash('whirlpool', secure_db($_POST['password']).secure_db($_POST['login']));
+    $conn = new PDO("mysql:host=localhost;dbname=camagru", "root", "root");
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $sql = "INSERT INTO secure (hash)
+    VALUES ('$sec')";
+    $conn->exec($sql);
+
+    $msg = "Click on the link for confirm inscription\n\nhttp://localhost:8888/createacount.php?email=$email&login=$name&password=$pass&hash=$sec";
+    $msg = wordwrap($msg,70);
+    mail($email, "Confirm inscription Camagru", $msg);
+    echo "<script language='javascript'>document.location.href='mailsend.php'</script>";
+
 ?>
