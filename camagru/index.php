@@ -49,7 +49,6 @@
 		<input type="submit" value="Restore with email" class="but">
 		</form>		
 	</div>
-	<div class="footer">
-	</div>
+	<img src="image/background.png" class="foot">
 </body>
 </html>

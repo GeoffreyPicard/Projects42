@@ -32,7 +32,7 @@ $conn = new PDO("mysql:host=localhost;dbname=camagru", "root", "root");
 $conn->exec($tab);
 
 $tab = "CREATE TABLE IF NOT EXISTS image ( 
-    ima VARCHAR(200) NOT NULL,
+    ima TEXT NOT NULL,
     login  VARCHAR(30) NOT NULL
     )";
 
