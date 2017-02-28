@@ -26,3 +26,46 @@
         <li><a href="myphoto.php">My photo</a></li>
         <li><a href="galerie.php">Gallery</a></li>
     </ul>
+    <?php
+    class TableRows extends RecursiveIteratorIterator { 
+    function __construct($it) { 
+        parent::__construct($it, self::LEAVES_ONLY); 
+    }
+    }  
+
+    $conn = new PDO("mysql:host=localhost;dbname=camagru", "root", "root");
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $stmt = $conn->prepare("SELECT ima, nblike  FROM image" ); 
+    $stmt->execute();
+    $i = 1;
+    $result = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
+    foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+        if (is_numeric($v))
+            echo "<div id='like_number'>" . $v . "</div>";
+        else
+        {
+  ?>
+<div class='wall'>
+<img class='gallery' src='montage/<?=$v?>.png'>
+</br>
+<input type='button' name='Like !' value='Like !' class='action-button animate' onclick='uplike()'>
+</br>   
+<?=$i?>
+</br>
+</div>
+<script type="text/javascript" src="gallery.js"></script>
+
+
+<?php
+     }
+         $i++;
+
+
+        }
+    ?>
+
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>

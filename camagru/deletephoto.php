@@ -46,6 +46,5 @@
      	}
      	$i++;
         }
-
-
+        header('location: myphoto.php');
 ?>

@@ -71,6 +71,13 @@ function upload()
   var canvas = document.getElementById('canvas')
   var context = canvas.getContext('2d')
   
+  context.beginPath();
+  context.strokeStyle="white";   
+  context.lineWidth="2";   
+  context.rect(0,0,300,300);
+  context.fillStyle="white";
+  context.fill();
+  context.stroke();
 
 
   var preview = document.querySelector('#preview');

@@ -70,7 +70,7 @@
 	<div id="preview"></div>
 	</br>
 	</br>
-	<canvas id="canvas" width="300" height="300"></canvas>
+	<canvas id="canvas" width="300" height="250"></canvas>
 
 
 	<div class="droite" action="putimage.php">
