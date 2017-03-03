@@ -1,7 +1,7 @@
 <?php session_start(); ?>
 <html>
 	<head>
-		<?php include "install.php"; ?>
+		<?php include "config/setup.php"; ?>
 		<link rel="stylesheet" href="style.css" />
         <meta charset="utf-8" />
         <title>Camagru</title>

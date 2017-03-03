@@ -15,7 +15,7 @@
         <meta charset="utf-8" />
         <title>Camagru</title>
         <a href="disconnect.php"><img src="image/off.png" class="off"></a>
-        <a href="galerie.php"><img src="image/galerie.png" class="galeriebutton"></a>
+        <a href="galerie.php?page=1"><img src="image/galerie.png" class="galeriebutton"></a>
     </head>
 
 <body class="back">

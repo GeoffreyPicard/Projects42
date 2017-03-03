@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	include "function.php";
+    include "config/database.php";
 	$login = $_SESSION['login'];
 
      class TableRows extends RecursiveIteratorIterator { 
@@ -11,7 +12,7 @@
     $number = secure_db($_POST['number']);
     $i = 0;
 
-    $conn = new PDO("mysql:host=localhost;dbname=camagru", "root", "root");
+    $conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $conn->prepare("SELECT ima FROM image WHERE login='$login'" ); 
     $stmt->execute();
@@ -26,7 +27,7 @@
      	 echo "<script language='javascript'>document.location.href='myphoto.php'</script>";
      }
 
-     $conn = new PDO("mysql:host=localhost;dbname=camagru", "root", "root");
+     $conn = new PDO("mysql:host=localhost;dbname=camagru", "root", "rootroot");
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $conn->prepare("SELECT ima FROM image WHERE login='$login'" ); 
     $stmt->execute();
@@ -36,7 +37,7 @@
      	if ($i === $number)
      	{
 
-     		$conn = new PDO("mysql:host=localhost;dbname=camagru", "root", "root");
+     		$conn = new PDO("mysql:host=localhost;dbname=camagru", "root", "rootroot");
    			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     		$sql = "DELETE FROM image WHERE ima='$v'";
     		$conn->exec($sql);

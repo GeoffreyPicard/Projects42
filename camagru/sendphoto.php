@@ -1,10 +1,11 @@
 <?php
 	session_start();
+  include "config/database.php";
 	$img = $_POST['image'];
 	$montage = $_POST['png'];
 	$image = hash('whirlpool', $img);
 	$login = $_SESSION['login'];
-	$conn = new PDO("mysql:host=localhost;dbname=camagru", "root", "root");
+	$conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sql = "INSERT INTO image (ima, login)
     VALUES ('$image', '$login')";

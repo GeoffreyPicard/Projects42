@@ -1,6 +1,7 @@
 <?php
     include "function.php";
-	$conn = new PDO("mysql:host=localhost;dbname=camagru", "root", "root");
+    include "config/database.php";
+	$conn = new PDO("mysql:host=localhost;dbname=camagru", "root", "rootroot");
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $conn->prepare("SELECT pass FROM changepass"); 
     $stmt->execute();
@@ -16,7 +17,7 @@
         	if ($v === $hash)
         	{
 
-                $conn = new PDO("mysql:host=localhost;dbname=camagru", "root", "root");
+                $conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 if (strlen(secure_db($_POST['mail'])) < 5)
                 {
@@ -31,7 +32,7 @@
                 $stmt = $conn->prepare($sql);
                 $stmt->execute();
 
-                $conn = new PDO("mysql:host=localhost;dbname=camagru", "root", "root");
+                $conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $sql = "DELETE FROM changepass WHERE pass='$hash'";
                 $conn->exec($sql);

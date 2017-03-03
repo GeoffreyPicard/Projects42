@@ -5,6 +5,7 @@
     }
 }
 include "function.php";
+include "config/database.php";
 if (!($_GET['login'] && $_GET['password'] && $_GET['hash']))
 {
     $message = "Error, rety to click on the link please";
@@ -12,7 +13,7 @@ if (!($_GET['login'] && $_GET['password'] && $_GET['hash']))
     echo "<script language='javascript'>document.location.href='index.php'</script>";
 }
 
-    $conn = new PDO("mysql:host=localhost;dbname=camagru", "root", "root");
+    $conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $conn->prepare("SELECT hash FROM secure"); 
     $stmt->execute();
@@ -25,13 +26,13 @@ if (!($_GET['login'] && $_GET['password'] && $_GET['hash']))
         		$name =  secure_db($_GET['login']);
    				$pass = secure_db($_GET['password']);
    				$email = secure_db($_GET['email']);
-    			$conn = new PDO("mysql:host=localhost;dbname=camagru", "root", "root");
+    			$conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
     			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     			$sql = "INSERT INTO users (login, password, email)
     			VALUES ('$name', '$pass', '$email')";
     			$conn->exec($sql);
 
-    			$conn = new PDO("mysql:host=localhost;dbname=camagru", "root", "root");
+    			$conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
    				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
    				$del = secure_db($_GET['hash']);
    				$sql = "DELETE FROM secure WHERE hash='$del'";

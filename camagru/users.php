@@ -1,6 +1,7 @@
 <?php
 	session_start();
     include "function.php";
+    include "config/database.php";
     if (strlen(secure_db($_POST['password'])) < 5)
     {
         $message = "Password must have more than 5 caracter";
@@ -31,7 +32,7 @@
         parent::__construct($it, self::LEAVES_ONLY); 
     }
 }
-    $conn = new PDO("mysql:host=localhost;dbname=camagru", "root", "root");
+    $conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $conn->prepare("SELECT id, login, password, email FROM users"); 
     $stmt->execute();
@@ -58,13 +59,13 @@
         }
     }
     $sec =  hash('whirlpool', secure_db($_POST['password']).secure_db($_POST['login']));
-    $conn = new PDO("mysql:host=localhost;dbname=camagru", "root", "root");
+    $conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sql = "INSERT INTO secure (hash)
     VALUES ('$sec')";
     $conn->exec($sql);
 
-    $msg = "Click on the link for confirm inscription\n\nhttp://localhost:8888/createacount.php?email=$email&login=$name&password=$pass&hash=$sec";
+    $msg = "Click on the link for confirm inscription\n\nhttp://localhost:8080/camagru/createacount.php?email=$email&login=$name&password=$pass&hash=$sec";
     $msg = wordwrap($msg,70);
     mail($email, "Confirm inscription Camagru", $msg);
     echo "<script language='javascript'>document.location.href='mailsend.php'</script>";

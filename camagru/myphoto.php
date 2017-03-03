@@ -1,6 +1,6 @@
 <?php
      session_start();
-
+     include "config/database.php";
 	if (!($_SESSION['login'] && $_SESSION['email'] && $_SESSION['password']))
 	{
 		$message = "You must log in to access this page";
@@ -24,7 +24,7 @@
     <img src="image/background.png" class="foot">
     <ul class="soustop">
         <li><a href="myphoto.php">My photo</a></li>
-        <li><a href="galerie.php">Gallery</a></li>
+        <li><a href="galerie.php?page=1">Gallery</a></li>
     </ul>
     <form action="deletephoto.php" method="post">
         <input class="delete" type="text" value="Nb" name="number">
@@ -41,7 +41,7 @@
     }
     }  
 
-    $conn = new PDO("mysql:host=localhost;dbname=camagru", "root", "root");
+    $conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $conn->prepare("SELECT ima FROM image WHERE login='$login'" ); 
     $stmt->execute();

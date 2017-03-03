@@ -1,6 +1,5 @@
-function uplike()
+function uplike(image)
 {
-	nblike = document.getElementById('like_number').value;
 
 	var xmlhttp = new XMLHttpRequest()
  	xmlhttp.onreadystatechange = function () {
@@ -10,5 +9,4 @@ function uplike()
 xmlhttp.open("POST", "uplike.php");
 xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 xmlhttp.send()
-alert(nblike)
 }
