@@ -1,6 +1,6 @@
 <?php
 include "database.php";
-$conn = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+$conn = new PDO('mysql:host=localhost', $DB_USER, $DB_PASSWORD);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $sql = "CREATE DATABASE IF NOT EXISTS camagru";
 $conn->exec($sql);
